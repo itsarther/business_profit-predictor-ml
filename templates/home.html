@@ -1,0 +1,229 @@
+<html>
+<head>
+<title>Profit Predictor</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;500&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    transition:0.4s;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Poppins;
+}
+
+/* THEMES */
+
+body.dark{
+    background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1c1c1c);
+    background-size:400% 400%;
+    animation:bgMove 12s ease infinite;
+}
+
+body.light{
+    background:linear-gradient(-45deg,#f6f9fc,#e3f2fd,#ffffff,#dfe9f3);
+    background-size:400% 400%;
+    animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* Floating emoji */
+
+.emoji{
+    position:absolute;
+    font-size:26px;
+    opacity:0.75;
+    animation:float 6s infinite ease-in-out;
+}
+
+@keyframes float{
+    0%{transform:translateY(0) rotate(0);}
+    50%{transform:translateY(-25px) rotate(10deg);}
+    100%{transform:translateY(0) rotate(0);}
+}
+
+/* Card */
+
+.mc{
+    backdrop-filter:blur(18px);
+    padding:35px;
+    border-radius:20px;
+    width:380px;
+    z-index:2;
+}
+
+.dark .mc{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.2);
+    box-shadow:0 0 40px rgba(0,255,200,0.25);
+}
+
+.light .mc{
+    background:rgba(255,255,255,0.8);
+    border:1px solid rgba(0,0,0,0.1);
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* Titles */
+
+.title{
+    font-family:Orbitron;
+    text-align:center;
+    font-size:28px;
+}
+
+.dark .title{color:#00ffd5;}
+.light .title{color:#00796b;}
+
+.subtitle{
+    font-family:Pacifico;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.dark .subtitle{color:white;}
+.light .subtitle{color:#333;}
+
+/* Inputs */
+
+input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:10px;
+    font-size:15px;
+}
+
+.dark input{
+    background:rgba(0,0,0,0.4);
+    border:1px solid #00ffd5;
+    color:white;
+}
+
+.light input{
+    background:white;
+    border:1px solid #00796b;
+    color:black;
+}
+
+input:focus{
+    outline:none;
+    transform:scale(1.03);
+}
+
+/* Button */
+
+input[type="submit"]{
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.dark input[type="submit"]{
+    background:#00ffd5;
+    color:black;
+}
+
+.light input[type="submit"]{
+    background:#00796b;
+    color:white;
+}
+
+/* Result */
+
+h2{
+    text-align:center;
+    margin-top:15px;
+    font-family:Orbitron;
+}
+
+.dark h2{color:#00ffd5;}
+.light h2{color:#00796b;}
+
+/* Toggle */
+
+.toggle{
+    position:absolute;
+    top:20px;
+    right:20px;
+    padding:10px 14px;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:18px;
+    z-index:3;
+}
+
+.dark .toggle{
+    background:#00ffd5;
+    color:black;
+}
+
+.light .toggle{
+    background:#00796b;
+    color:white;
+}
+
+</style>
+</head>
+
+<body class="dark">
+
+<button class="toggle" onclick="toggleMode()">🌙</button>
+
+<!-- MANY floating emojis -->
+<script>
+const emojis = ["💰","📈","🚀","💹","✨","📊","🪙","🔥","⭐"];
+for(let i=0;i<25;i++){
+    let e=document.createElement("div");
+    e.className="emoji";
+    e.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+    e.style.top=Math.random()*100+"%";
+    e.style.left=Math.random()*100+"%";
+    e.style.animationDuration=(4+Math.random()*5)+"s";
+    document.body.appendChild(e);
+}
+
+function toggleMode(){
+    document.body.classList.toggle("dark");
+    document.body.classList.toggle("light");
+
+    let btn=document.querySelector(".toggle");
+    btn.innerHTML=document.body.classList.contains("dark")?"🌙":"☀";
+}
+</script>
+
+<div class="mc">
+
+<div class="title">PROFIT AI</div>
+<div class="subtitle">Predict • Optimize • Grow ✨</div>
+
+<form method="POST">
+
+<input type="number" step="any" name="rnd" placeholder="💡 R&D Spend" required>
+<input type="number" step="any" name="amd" placeholder="🏢 Administration" required>
+<input type="number" step="any" name="mrk" placeholder="📣 Marketing Spend" required>
+
+<input type="submit" value="⚡ Predict Profit">
+
+</form>
+
+<h2>{{msg}}</h2>
+
+</div>
+
+</body>
+</html>
